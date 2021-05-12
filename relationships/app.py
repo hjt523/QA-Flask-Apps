@@ -7,15 +7,15 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@35.242.189.33
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 db = SQLAlchemy(app) # create SQLALchemy object
 
-class Countries(db.Model):
+class Customers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(30), nullable=False)
-    cities = db.relationship('Cities', backref='country') 
+    name = db.Column(db.string, nullable = False)
+    product = db.relationship('product', backref='product') 
 
-class Cities(db.Model):
+class products(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
-    country_id = db.Column(db.Integer, db.ForeignKey('countries.id'), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
 
 if __name__=='__main__':
     app.run(debug==True, host='0.0.0.0')

@@ -1,6 +1,11 @@
 from flask import Flask
 
 app = Flask(__name__)
+'''
+app.config["SQL"]
+
+
+'''
 
 @app.route('/')
 @app.route('/home')
@@ -9,7 +14,7 @@ def home():
 @app.route('/numwang/<int:number>')
 def numwang(number):
     number = number**2
-    number = str(number)
+    number = str(number) + "? Thats Numberwang!"
     return number
 
 @app.route('/about')
