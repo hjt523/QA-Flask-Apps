@@ -1,16 +1,23 @@
-from flask import Flask # Import Flask class
+from flask import Flask, redirect, render_template, request # Import Flask class
 from flask_sqlalchemy import SQLAlchemy # Import SQLAlchemy class
-
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
 app = Flask(__name__) # create Flask object
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data.db" # Set the connection string to connect to the database
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+app.config['SECRET_KEY'] = 'edfghjkl'
 db = SQLAlchemy(app) # create SQLALchemy object
 @app.route('/')
 def index():
-    all_todo = todo.query.all()
-    todos_string = ''
-    return all_todo
+    form = nameadd()
+    if form.validate_on_submit():
+        ntask = todo(Task=form.name.data)
+        db.session.add(ntask)
+        db.session.commit()
+    tasks = todo.query.all()
+    return render_template("index.html",tasks = tasks, form=form)
+
 @app.route('/home')
 def home():
     return 'This is a to do list!'
@@ -23,6 +30,11 @@ class todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     Task= db.Column(db.String(30), nullable=False)
     Complete = db.Column(db.Boolean, nullable=False, default=False)
+
+class nameadd(FlaskForm):
+    name = StringField('Name')
+    submit = SubmitField('Submit')
+
 
 @app.route("/add")
 def add():

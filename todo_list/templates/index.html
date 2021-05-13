@@ -1,0 +1,16 @@
+
+{% extends 'layout.html'%}
+
+    {% block body %}
+
+    <h1>Todo App</h1>
+
+        {% for user in tasks %}
+
+        <p>{{ user }}</p>
+
+    {% endfor %}
+
+
+
+{% endblock body %}
