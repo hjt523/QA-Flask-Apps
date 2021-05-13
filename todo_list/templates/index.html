@@ -9,7 +9,7 @@
         <tr>
             <th> Task </th>
             <th> ID </th>
-            <th> Status </th>
+            <th> Complete? </th>
             <th> Change Status </th>
             <th> Ch-Ch-CHAAAANGES </th>
             <th> Doom! </th>
@@ -21,7 +21,7 @@
             
                 <td>{{ user.Task}}</td>  
                 <td>{{ user.id}}</td>
-                <td>{{ user.Complete}}</td>
+                <td style="background-color: rgb(14, 250, 6)">{{ user.Complete}}</td>
                 <td><input type="submit" value="Incomplete"></input></td>
             
             </form>
@@ -30,7 +30,7 @@
             
                 <td>{{ user.Task}}</td>  
                 <td>{{ user.id}}</td>
-                <td>{{ user.Complete}}</td>
+                <td style="background-color: rgb(255, 209, 5)">{{ user.Complete}}</td>
                 <td><input type="submit" value="complete"></input></td>
             {%endif%}
             </form>
@@ -38,7 +38,7 @@
                 <td><input type="submit" value= "Update"></td>
             </form>
             <form action= "{{url_for("delete",todoid=user.id)}}">
-                <td><input type="submit" value= "Delete"></input></td>
+                <td style="background-color:rgb(161, 8, 8)"><input type="submit" value= "Delete" ></input></td>
             </form>
             </tr>
         {% endfor %}
