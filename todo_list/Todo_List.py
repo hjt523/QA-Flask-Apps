@@ -12,11 +12,14 @@ db = SQLAlchemy(app) # create SQLALchemy object
 
 @app.route('/')
 def index():
+    
     form = nameadd()
+    """
     if form.validate_on_submit():
         ntask = todo(Task=form.name.data)
         db.session.add(ntask)
         db.session.commit()
+        """
     tasks = todo.query.all()
     return render_template("index.html",tasks = tasks, form=form)
 
@@ -38,17 +41,34 @@ class nameadd(FlaskForm):
     submit = SubmitField('Submit')
 
 
-@app.route("/add")
+@app.route("/add",methods=['GET',"POST"])
 def add():
-    new_todo = todo( Task = " New Todo")
-    db.session.add(new_todo)
-    db.session.commit()
-    return " New task added"
+    error = ""
+    form = nameadd()
+
+    if request.method == "POST":
+        Task = form.name.data
+        if len(Task) == 0 :
+            error = "Please supply a task"
+        else:
+            ntask = todo(Task=Task, Complete = False)
+            db.session.add(ntask)
+            db.session.commit()
+            return redirect(url_for('index'))
+    
+    return render_template('add.html', form=form, message=error)
 
 @app.route("/complete/<int:todoid>")
 def complete(todoid):
     todos = todo.query.get(todoid)
     todos.Complete = True
+    db.session.commit()
+   
+    return  redirect(url_for('index'))
+@app.route("/incomplete/<int:todoid>")
+def incomplete(todoid):
+    todos = todo.query.get(todoid)
+    todos.Complete = False
     db.session.commit()
    
     return  redirect(url_for('index'))

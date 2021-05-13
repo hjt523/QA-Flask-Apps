@@ -1,0 +1,16 @@
+{% extends 'layout.html'%}
+{% block body%} 
+
+<title>Add to List</title>
+<div class="form">
+    <form method="POST" action=''>
+        {{form.hidden_tag()}}
+        {{form.name.label}} {{form.name}}
+        <br>
+        {{submit}}
+    </form>
+
+</div>
+
+
+{% endblock body%}

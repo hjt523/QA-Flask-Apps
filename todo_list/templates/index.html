@@ -4,21 +4,36 @@
 {% block body %}
     
     <h1>Todo's</h1>
-    <table >
+    
+    <table border="1" cellspacing="0" cellpadding="0" width="100%" align="center">
         <tr>
             <th> Task </th>
             <th> ID </th>
             <th> Status </th>
+            <th> Change Status </th>
         </tr>
         {% for user in tasks %}
+            {% if user.Complete == True%}
+            <form action= "{{url_for("incomplete",todoid=user.id)}}">
             <tr>
                 <td>{{ user.Task}}</td>  
                 <td>{{ user.id}}</td>
                 <td>{{ user.Complete}}</td>
+                <td><input type="submit" value="Incomplete"></input></td>
             </tr>
-
+            </form>
+            {%else%}
+            <form action="{{ url_for("complete",todoid=user.id)}}">
+            <tr>
+                <td>{{ user.Task}}</td>  
+                <td>{{ user.id}}</td>
+                <td>{{ user.Complete}}</td>
+                <td><input type="submit" value="complete"></input></td>
+            </tr>
+            </form>
+            {%endif%}
         {% endfor %}
     </table>
-
+    
 
 {% endblock body %}
