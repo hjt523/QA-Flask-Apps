@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request # Import Flask class
+from flask import Flask, redirect, render_template, request,url_for # Import Flask class
 from flask_sqlalchemy import SQLAlchemy # Import SQLAlchemy class
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
@@ -7,7 +7,9 @@ app = Flask(__name__) # create Flask object
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data.db" # Set the connection string to connect to the database
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 app.config['SECRET_KEY'] = 'edfghjkl'
+
 db = SQLAlchemy(app) # create SQLALchemy object
+
 @app.route('/')
 def index():
     form = nameadd()
@@ -46,15 +48,17 @@ def add():
 @app.route("/complete/<int:todoid>")
 def complete(todoid):
     todos = todo.query.get(todoid)
-    todos.complete = True
+    todos.Complete = True
     db.session.commit()
-    return " Task Completed"
+   
+    return  redirect(url_for('index'))
 @app.route("/delete/<int:todoid>")
 def delete(todoid):
     todel = todo.query.get(todoid)
     db.session.delete(todel)
     db.session.commit()
-    return (" Task  Deleted ")
+    
+    return redirect( url_for('index'))
 '''
 class details():
     Steps = db.column(db.integer)

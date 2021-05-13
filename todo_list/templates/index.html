@@ -1,16 +1,24 @@
 
 {% extends 'layout.html'%}
 
-    {% block body %}
-
-    <h1>Todo App</h1>
-
+{% block body %}
+    
+    <h1>Todo's</h1>
+    <table >
+        <tr>
+            <th> Task </th>
+            <th> ID </th>
+            <th> Status </th>
+        </tr>
         {% for user in tasks %}
+            <tr>
+                <td>{{ user.Task}}</td>  
+                <td>{{ user.id}}</td>
+                <td>{{ user.Complete}}</td>
+            </tr>
 
-        <p>{{ user }}</p>
-
-    {% endfor %}
-
+        {% endfor %}
+    </table>
 
 
 {% endblock body %}
