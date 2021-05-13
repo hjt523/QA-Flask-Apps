@@ -1,9 +1,10 @@
 {% extends 'layout.html'%}
 {% block body%} 
 
-<title>Add to List</title>
-<h1>Enter the name of your new task!</h1>
+<title>Update the list</title>
+<h1>Update the task! </h1>
 <div class="form">
+    <p> The original mission is over, the new one is :</p>
     <form method="POST" action=''>
         {{form.hidden_tag()}}
         {{form.name.label}} {{form.name}}

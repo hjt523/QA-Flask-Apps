@@ -11,29 +11,49 @@
             <th> ID </th>
             <th> Status </th>
             <th> Change Status </th>
+            <th> Ch-Ch-CHAAAANGES </th>
+            <th> Doom! </th>
         </tr>
         {% for user in tasks %}
+            <tr>
             {% if user.Complete == True%}
             <form action= "{{url_for("incomplete",todoid=user.id)}}">
-            <tr>
+            
                 <td>{{ user.Task}}</td>  
                 <td>{{ user.id}}</td>
                 <td>{{ user.Complete}}</td>
                 <td><input type="submit" value="Incomplete"></input></td>
-            </tr>
+            
             </form>
             {%else%}
             <form action="{{ url_for("complete",todoid=user.id)}}">
-            <tr>
+            
                 <td>{{ user.Task}}</td>  
                 <td>{{ user.id}}</td>
                 <td>{{ user.Complete}}</td>
                 <td><input type="submit" value="complete"></input></td>
-            </tr>
-            </form>
             {%endif%}
+            </form>
+            <form action= "{{url_for("update",todoid=user.id)}}">
+                <td><input type="submit" value= "Update"></td>
+            </form>
+            <form action= "{{url_for("delete",todoid=user.id)}}">
+                <td><input type="submit" value= "Delete"></input></td>
+            </form>
+            </tr>
         {% endfor %}
     </table>
+
+    <br>
+
+    <form action= "{{url_for("add")}}">
+        <td><input type="submit" value= "Add more tasks!" ></input></td>
+    </form>
+
+    <br>
+    <br>
+    <br>
+    <a href="https://github.com/hjt523/QA-Flask-Apps/tree/main/todo_list">For the code behind this list ^^</a>
     
 
 {% endblock body %}

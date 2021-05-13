@@ -41,6 +41,7 @@ class nameadd(FlaskForm):
     submit = SubmitField('Submit')
 
 
+
 @app.route("/add",methods=['GET',"POST"])
 def add():
     error = ""
@@ -57,6 +58,22 @@ def add():
             return redirect(url_for('index'))
     
     return render_template('add.html', form=form, message=error)
+@app.route("/update/<int:todoid>",methods=['GET',"POST"])
+def update(todoid):
+    error = ""
+    form = nameadd()
+    entry = todo.query.get(todoid)
+    if request.method == "POST":
+        Task = form.name.data
+        if len(Task) == 0 :
+            error = "Please supply a task"
+        else:
+            entry.Task = Task
+            db.session.commit()
+            return redirect(url_for('index'))
+    
+    return render_template('update.html', form=form, message=error)
+
 
 @app.route("/complete/<int:todoid>")
 def complete(todoid):
