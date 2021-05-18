@@ -101,4 +101,4 @@ class details():
     Steps = db.column(db.integer)
 '''
 if __name__=='__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='35.246.127.20:5000')
